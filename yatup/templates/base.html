@@ -15,7 +15,7 @@
     <meta name="theme-color" content="#ffffff">
     <!-- Подключен файл со стандартными стилями бустрап -->
     <link rel="stylesheet" href={% static "css/bootstrap.min.css"%}>
-    <title>Лев Толстой – зеркало русской революции.</title>
+    <title> {% block title %} Yatube {% endblock %} </title>
   </head>
   <body>
     {% include 'includes/header.html' %}
