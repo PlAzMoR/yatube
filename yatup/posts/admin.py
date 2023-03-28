@@ -14,7 +14,7 @@ class GroupAdmin(admin.ModelAdmin):
     list_display = ('pk', 'title', 'slug', 'description',)
     search_filters = ('title',)
     list_filter = ('title',)
-
+    
     empty_value_display = '-пусто-'
 
 admin.site.register(Post, PostAdmin)

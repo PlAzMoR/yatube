@@ -6,7 +6,7 @@ from .utils import get_page_context
 
 posts_count = 5
 
-@login_required
+# @login_required
 def index(request):
     template = 'posts/index.html'
     post_list = Post.objects.all()
