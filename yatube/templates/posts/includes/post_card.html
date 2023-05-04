@@ -1,20 +1,25 @@
+{% load thumbnail %}
 <article>
 <ul>
   <li>
     Автор:
+    <a href="{% url 'posts:profile' post.author.username %}">
     {% if post.author.get_full_name %}
       {{ post.author.get_full_name }}
     {% else %}
       {{ post.author.username }}
     {% endif %}
-    <a href='#'>
     </a>
   </li>
   <li>
     Дата публикации: {{ post.pub_date|date:"d E Y" }}
   </li>
 </ul>
-<p>{{ post.text }}</p>
+<p>{{ post.text }}
+{% thumbnail post.image "1920x1080" crop="center" upscale=False as im %}
+  <img class="img-thumbnail" src="{{ im.url }}">
+{% endthumbnail %}
+</p>
 <a href="{% url 'posts:post_detail' post.id %}">подробная информация</a>
 </article>
 {% if post.group %}

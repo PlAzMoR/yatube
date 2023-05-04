@@ -10,7 +10,7 @@ posts_count = 5
 # @login_required
 def index(request):
     template = 'posts/index.html'
-    post_list = Post.objects.all()
+    post_list = Post.objects.all().order_by('-pub_date')
     context = {
         'page_obj': get_page_context(request, post_list),
     }
@@ -20,7 +20,7 @@ def index(request):
 def group_posts(request, slug):
     template = "posts/group_list.html"
     group = get_object_or_404(Group, slug=slug)
-    post_list = group.posts.all()
+    post_list = group.posts.all().order_by('-pub_date')
     context = {
         'group': group,
         'page_obj': get_page_context(request, post_list),
@@ -62,7 +62,7 @@ def post_edit(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     if request.user != post.author:
         return redirect('posts:post_detail', post.pk,)
-    form = PostForm(request.POST or None, instance=post)
+    form = PostForm(request.POST or None, files=request.FILES or None, instance=post)
     if form.is_valid():
         post.save()
         return redirect('posts:post_detail', post.pk,)

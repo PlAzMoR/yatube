@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 {% block title %}
 Профиль пользователя {{ author.get_full_name }}
 {% endblock %}
@@ -12,9 +13,10 @@
     <article>
         <ul>
             <li>
-                Автор: {{ author.username }}
-                <a href="{% url 'posts:profile' post.author.username %}">все
-                    посты пользователя</a>
+                Автор:
+                <a href="{% url 'posts:profile' post.author.username %}">
+                    {{ author.username }}
+                </a>
             </li>
             <li>
                 Дата публикации: {{ post.pub_date|date:"d E Y" }}
@@ -22,6 +24,9 @@
           </ul>
         <p>
             {{ post.text }}
+            {% thumbnail post.image "1920x1080" crop="center" upscale=False as im %}
+            <img class="img-thumbnail" src="{{ im.url }}">
+            {% endthumbnail %}
         </p>
         <a href="{% url 'posts:post_detail' post.pk %}">подробная
             информация </a>

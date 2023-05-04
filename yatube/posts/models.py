@@ -18,6 +18,8 @@ class Post(models.Model):
 
     group = models.ForeignKey(Group, blank=True, null=True, on_delete=models.SET_NULL, related_name='posts')
 
+    image = models.ImageField(verbose_name='Картинка', upload_to = 'posts/', blank=True)
+
     def __str__(self):
         return self.text
 
